@@ -4,6 +4,9 @@ import { BUTTON_TYPE_CLASSES } from "../../components/button/button.component";
 
 import Navbar from "../../components/navbar/navbar.component";
 
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
 import {
   StepTitle,
   StepContainer,
@@ -11,10 +14,29 @@ import {
   StepButtonContainer,
 } from "./step1.style";
 
+const defaultformFields = {
+  firstname: "",
+  lastname: "",
+};
+
 const Step1 = () => {
+  const [formFields, setFormFields] = useState(defaultformFields);
+
+  const { firstname, lastname } = formFields;
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormFields({ ...formFields, [name]: value });
+  };
+
+  const navigate = useNavigate();
+  const handleGoToStep2 = () => {
+    navigate("/step2");
+  };
+
   return (
     <StepContainer>
-      <Navbar />
+      <Navbar hiddenReturn={true} />
       <StepTitle>Step 1/2</StepTitle>
 
       <FormStep1>
@@ -22,24 +44,27 @@ const Step1 = () => {
           label="Firstname"
           type="text"
           required
-          // onChange={handleChange}
+          onChange={handleChange}
           name="firstname"
-          // value={firstname}
-          value=""
+          value={firstname}
         />
         <FormInput
           label="Lastname"
           type="text"
           required
-          // onChange={handleChange}
+          onChange={handleChange}
           name="lastname"
-          // value={lastname}
-          value=""
+          value={lastname}
         />
       </FormStep1>
 
       <StepButtonContainer>
-        <Button buttonType={BUTTON_TYPE_CLASSES.inverted}>Next</Button>
+        <Button
+          buttonType={BUTTON_TYPE_CLASSES.inverted}
+          onClick={handleGoToStep2}
+        >
+          Next
+        </Button>
       </StepButtonContainer>
     </StepContainer>
   );

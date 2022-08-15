@@ -4,12 +4,17 @@ import { StepContainer } from "../step1/step1.style";
 
 import { ResultsContainer, Results } from "./result.style";
 
-import { StepTitle } from "../step1/step1.style";
+import { useNavigate } from "react-router-dom";
 
 const Result = () => {
+  const navigate = useNavigate();
+
+  const handleReturn = () => {
+    navigate("/step2");
+  };
   return (
     <StepContainer>
-      <Navbar />
+      <Navbar handleReturn={handleReturn} />
 
       <ResultsContainer>
         <Results>

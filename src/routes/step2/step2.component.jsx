@@ -14,10 +14,35 @@ import {
 
 import { GenderAndAgeContainer } from "./step2.style";
 
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
 const Step2 = () => {
+  const [age, setAge] = useState("");
+
+  const handleChange = (event) => {
+    const newAge =
+      +event.target.value > +event.target.max
+        ? event.target.max
+        : +event.target.value < +event.target.min
+        ? event.target.min
+        : event.target.value;
+
+    setAge(newAge);
+  };
+
+  const navigate = useNavigate();
+  const goToResultHandler = () => {
+    navigate("/result");
+  };
+
+  const handleReturn = () => {
+    navigate("/step1");
+  };
+
   return (
     <StepContainer>
-      <Navbar />
+      <Navbar handleReturn={handleReturn} />
       <StepTitle>Step 2/2</StepTitle>
       <GenderAndAgeContainer>
         <GenderInfos />
@@ -25,16 +50,20 @@ const Step2 = () => {
           label="Age"
           type="number"
           min="1"
-          max="140"
+          max="150"
           required
-          // onChange={handleChange}
+          onChange={handleChange}
           name="age"
-          // value={age}
-          value=""
+          value={age}
         />
       </GenderAndAgeContainer>
       <StepButtonContainer>
-        <Button buttonType={BUTTON_TYPE_CLASSES.inverted}>Next</Button>
+        <Button
+          buttonType={BUTTON_TYPE_CLASSES.inverted}
+          onClick={goToResultHandler}
+        >
+          Next
+        </Button>
       </StepButtonContainer>
     </StepContainer>
   );

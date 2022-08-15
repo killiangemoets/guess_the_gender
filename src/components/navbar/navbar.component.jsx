@@ -3,22 +3,45 @@
 
 import { NavbarContainer, NavbarButtonContainer } from "./navbar.style";
 import { IoHomeSharp, IoArrowBackSharp } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
-const Navbar = () => {
+import HomeModal from "../home-modal/home-modal.component";
+
+import { useState } from "react";
+
+const Navbar = ({ hiddenReturn, handleReturn }) => {
+  const [hideModal, setHideModal] = useState(true);
+  const style = hiddenReturn
+    ? { opacity: 0, pointerEvents: "none", visibility: "hidden" }
+    : {};
+
+  // const navigate = useNavigate();
+
+  const handleHomeModal = () => {
+    setHideModal(false);
+  };
+
+  const handleCloseModal = () => {
+    setHideModal(true);
+  };
+
   return (
-    <NavbarContainer>
-      {/* Return button */}
-      <NavbarButtonContainer>
-        <IoArrowBackSharp size={32} />
-      </NavbarButtonContainer>
+    <>
+      <NavbarContainer>
+        {/* Return button */}
+        <NavbarButtonContainer onClick={handleReturn} style={style}>
+          <IoArrowBackSharp size={32} />
+        </NavbarButtonContainer>
 
-      {/* Home Button */}
-      <NavbarButtonContainer>
-        <IoHomeSharp size={28} />
-      </NavbarButtonContainer>
-      {/* <ReturnButton />
+        {/* Home Button */}
+        <NavbarButtonContainer onClick={handleHomeModal}>
+          <IoHomeSharp size={28} />
+        </NavbarButtonContainer>
+        {/* <ReturnButton />
       <HomeButton /> */}
-    </NavbarContainer>
+      </NavbarContainer>
+      <HomeModal hidden={hideModal} handleCloseModal={handleCloseModal} />
+    </>
   );
 };
 
