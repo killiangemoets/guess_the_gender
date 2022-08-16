@@ -2,7 +2,7 @@ import ResultElement from "../../components/result-element/result-element.compon
 
 import Header from "../../components/header/header.component";
 
-import { ResultContainer, ResultsContainer, Results } from "./result.style";
+import { ResultsContainer, Results } from "./result.style";
 
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";

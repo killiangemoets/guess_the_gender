@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-/* SPINNER STYLE COMING FROM CODEPEN.IO*/
+/* SPINNER STYLE COMING FROM CODEPEN.io*/
+
 export const SpinnerOverlay = styled.div`
   height: 60vh;
   width: 100%;

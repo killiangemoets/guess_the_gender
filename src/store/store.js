@@ -8,7 +8,7 @@ import { rootReducer } from "./root-reducer";
 const persistConfig = {
   key: "root",
   storage: storageSession, // we want to store in the session storage
-  // No need of a white or black list bc we want to store everything
+  // No need of a whiteList or blackList here bc we want to store everything
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

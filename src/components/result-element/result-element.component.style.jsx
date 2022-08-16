@@ -4,7 +4,6 @@ export const ResultElementContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 2rem;
-  /* justify-content: center; */
 `;
 
 export const LabelElement = styled.h6`

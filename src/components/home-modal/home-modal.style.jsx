@@ -21,7 +21,7 @@ export const HomeModalContainer = styled.div`
   align-items: center;
   justify-content: center;
   padding: 12rem 12.8rem 6.4rem 12.8rem;
-  border-radius: 8px;
+  border-radius: 6px;
   box-shadow: 0 1.8rem 3.6rem rgba(0, 0, 0, 0.08);
 `;
 
