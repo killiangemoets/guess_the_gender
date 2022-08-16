@@ -1,27 +1,38 @@
 import ResultElement from "../../components/result-element/result-element.component";
-import Navbar from "../../components/navbar/navbar.component";
-import { StepContainer } from "../step1/step1.style";
 
-import { ResultsContainer, Results } from "./result.style";
+import Header from "../../components/header/header.component";
 
+import { ResultContainer, ResultsContainer, Results } from "./result.style";
+
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import { selectPersonInfos } from "../../store/person/person.selector";
+import { StepContainer } from "../step1/step1.style";
 
 const Result = () => {
   const navigate = useNavigate();
+  const { firstname, lastname, age, gender } = useSelector(selectPersonInfos);
+
+  useEffect(() => {
+    if (!firstname.length || !lastname.length) navigate("/step1");
+    else if (!age.length) navigate("/step2");
+  }, []);
 
   const handleReturn = () => {
     navigate("/step2");
   };
   return (
     <StepContainer>
-      <Navbar handleReturn={handleReturn} />
+      <Header handleReturn={handleReturn}>Summary</Header>
 
       <ResultsContainer>
         <Results>
-          <ResultElement label={"Firstname"} value={"Lebron"} />
-          <ResultElement label={"Lastname"} value={"James"} />
-          <ResultElement label={"Gender"} value={"Male"} />
-          <ResultElement label={"Age"} value={"37"} />
+          <ResultElement label={"Firstname"} value={firstname} />
+          <ResultElement label={"Lastname"} value={lastname} />
+          <ResultElement label={"Gender"} value={gender} />
+          <ResultElement label={"Age"} value={age} />
         </Results>
       </ResultsContainer>
     </StepContainer>

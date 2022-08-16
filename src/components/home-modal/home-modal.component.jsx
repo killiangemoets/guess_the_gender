@@ -1,6 +1,9 @@
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { clearPersonInfos } from "../../store/person/person.action";
 
 import {
   HomeModalBackground,
@@ -13,8 +16,10 @@ const HomeModal = ({ hidden, handleCloseModal }) => {
   const style = hidden ? { display: "none" } : {};
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleGoHome = () => {
+    dispatch(clearPersonInfos());
     navigate("/");
   };
 

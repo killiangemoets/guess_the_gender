@@ -2,26 +2,40 @@ import styled, { css } from "styled-components";
 
 const subColor = "#999";
 const mainColor = "#333";
+const errorColor = "#f03e3e";
 
 const shrinkLabelStyles = css`
-  top: -1.4rem;
-  font-size: 1.4rem;
+  top: -1rem;
+  font-size: 1.6rem;
   color: ${mainColor};
+`;
+
+const errorLabelStyles = css`
+  color: ${errorColor} !important;
+`;
+
+const errorInputStyles = css`
+  border-bottom: 1px solid ${errorColor};
+  color: ${errorColor};
 `;
 
 export const FormInputLabel = styled.label`
   color: ${subColor};
   font-size: 2.4rem;
-  font-weight: normal;
+  font-weight: 400;
   position: absolute;
   pointer-events: none;
   left: 0.5rem;
   top: 2.4rem;
   transition: 0.3s ease all;
 
-  ${({ shrink }) =>
-    shrink &&
-    shrinkLabelStyles}// If shrink is true, we apply the shrinkLabelStyle
+  ${({ error }) => {
+    return error && errorLabelStyles;
+  }};
+
+  ${({ shrink }) => {
+    return shrink && shrinkLabelStyles;
+  }}; // If shrink is true, we apply the shrinkLabelStyle
 `;
 
 export const Input = styled.input`
@@ -40,16 +54,17 @@ export const Input = styled.input`
     outline: none;
   }
 
-  // This mean that when we focus on an input (with the class "form-input"), the next sibling (inside "group") with the class "form-input-label" will include shrinkLabel (i.e., will include the style from shrinkLabel).. So the next sibling need to be the label, so the input need to be before the label
+  // To apply the shrinkLabelStyle on the label when we focus on the input
   &:focus ~ ${FormInputLabel} {
-    /* @include shrinkLabel(); */
-    ${shrinkLabelStyles}
+    ${shrinkLabelStyles};
+    ${({ error }) => error && errorLabelStyles};
   }
+
+  ${({ error }) => error && errorInputStyles};
 `;
 
 export const FormInputContainer = styled.div`
   position: relative;
-  margin: 4.5rem 0;
   input[type="password"] {
     letter-spacing: 0.3rem;
   }

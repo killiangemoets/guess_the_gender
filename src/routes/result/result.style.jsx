@@ -1,17 +1,20 @@
 import styled from "styled-components";
 
 export const ResultsContainer = styled.div`
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
 `;
+
 export const Results = styled.div`
   display: grid;
   grid-template-columns: auto auto;
-  gap: 12.8rem;
-  /* column-gap: 12.8rem; */
-  width: 60%;
-  height: 60%;
+  gap: 6.4rem;
   justify-content: center;
+
+  @media screen and (max-width: 520px) {
+    grid-template-columns: auto;
+    gap: 3.6rem;
+  }
 `;

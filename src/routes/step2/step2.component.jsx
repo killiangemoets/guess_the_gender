@@ -4,21 +4,35 @@ import { BUTTON_TYPE_CLASSES } from "../../components/button/button.component";
 
 import GenderInfos from "../../components/gender-infos/gender-infos.component";
 
-import Navbar from "../../components/navbar/navbar.component";
+import Header from "../../components/header/header.component";
 
-import {
-  StepButtonContainer,
-  StepContainer,
-  StepTitle,
-} from "../step1/step1.style";
+import { StepButtonContainer, StepContainer } from "../step1/step1.style";
 
 import { GenderAndAgeContainer } from "./step2.style";
 
+import { updatePersonInfos } from "../../store/person/person.action";
+import { selectPersonInfos } from "../../store/person/person.selector";
+
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 const Step2 = () => {
   const [age, setAge] = useState("");
+  const [ageError, setAgeError] = useState("");
+
+  const { age: savedAge, firstname, lastname } = useSelector(selectPersonInfos);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!firstname.length || !lastname.length) navigate("/step1");
+  }, []);
+
+  useEffect(() => {
+    setAge(savedAge);
+  }, []);
 
   const handleChange = (event) => {
     const newAge =
@@ -31,19 +45,29 @@ const Step2 = () => {
     setAge(newAge);
   };
 
-  const navigate = useNavigate();
-  const goToResultHandler = () => {
-    navigate("/result");
+  const handleBlur = () => {
+    if (!age.length) setAgeError("Please enter an age");
+    else setAgeError("");
   };
 
   const handleReturn = () => {
+    dispatch(updatePersonInfos({ age }));
     navigate("/step1");
+  };
+
+  const goToResultHandler = () => {
+    handleBlur();
+    if (age.length) {
+      dispatch(updatePersonInfos({ age }));
+
+      navigate("/result");
+    }
   };
 
   return (
     <StepContainer>
-      <Navbar handleReturn={handleReturn} />
-      <StepTitle>Step 2/2</StepTitle>
+      <Header handleReturn={handleReturn}>Step 2/2</Header>
+
       <GenderAndAgeContainer>
         <GenderInfos />
         <FormInput
@@ -53,8 +77,10 @@ const Step2 = () => {
           max="150"
           required
           onChange={handleChange}
+          onBlur={handleBlur}
           name="age"
           value={age}
+          errorMessage={ageError}
         />
       </GenderAndAgeContainer>
       <StepButtonContainer>
