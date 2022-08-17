@@ -1,30 +1,27 @@
 import FormInput from "../../components/form-input/form-input.component";
 import Button from "../../components/button/button.component";
 import { BUTTON_TYPE_CLASSES } from "../../components/button/button.component";
-
 import GenderInfos from "../../components/gender-infos/gender-infos.component";
-
 import Header from "../../components/header/header.component";
 
 import { StepButtonContainer, StepContainer } from "../step1/step1.style";
-
 import { GenderAndAgeContainer } from "./step2.style";
-
-import { updatePersonInfos } from "../../store/person/person.action";
-import { selectPersonInfos } from "../../store/person/person.selector";
 
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { updatePersonInfos } from "../../store/person/person.action";
+import { selectPersonInfos } from "../../store/person/person.selector";
+
 const Step2 = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [age, setAge] = useState("");
   const [ageError, setAgeError] = useState("");
 
   const { age: savedAge, firstname, lastname } = useSelector(selectPersonInfos);
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!firstname.length || !lastname.length) navigate("/step1");
@@ -59,7 +56,6 @@ const Step2 = () => {
     handleBlur();
     if (age.length) {
       dispatch(updatePersonInfos({ age }));
-
       navigate("/result");
     }
   };

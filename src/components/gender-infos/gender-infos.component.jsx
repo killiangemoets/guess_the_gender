@@ -1,27 +1,29 @@
 import ResultElement from "../result-element/result-element.component";
+import Spinner from "../spinner/spinner.component";
+
 import { GenderInfosContainer } from "./gender-infos.style";
 
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
 import { selectPersonInfos } from "../../store/person/person.selector";
 import { updatePersonInfos } from "../../store/person/person.action";
-
-import Spinner from "../spinner/spinner.component";
 
 import { getGenderObj } from "../../utils/genderize.utils";
 
 const GenderInfos = () => {
-  const [gender, setGender] = useState("");
-  const [probability, setProbability] = useState("");
-
-  const { firstname } = useSelector(selectPersonInfos);
-  const [isLoading, setIsLoading] = useState(false);
-
   const dispatch = useDispatch();
 
+  const [gender, setGender] = useState("");
+  const [probability, setProbability] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { firstname } = useSelector(selectPersonInfos);
+
   useEffect(() => {
-    setIsLoading(true);
     const getGender = async () => {
+      setIsLoading(true);
+
       const { gender: newGender, probability: newProbability } =
         await getGenderObj(firstname);
 
@@ -34,10 +36,13 @@ const GenderInfos = () => {
           gender: newGender,
         })
       );
+
       setIsLoading(false);
     };
-    if (firstname.length) getGender();
+
+    getGender();
   }, [dispatch, firstname]);
+
   return (
     <GenderInfosContainer>
       {isLoading ? (

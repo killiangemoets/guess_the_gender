@@ -35,7 +35,10 @@ export const FormInputLabel = styled.label`
 
   ${({ shrink }) => {
     return shrink && shrinkLabelStyles;
-  }}; // If shrink is true, we apply the shrinkLabelStyle
+  }};
+
+  // If error is true, we apply the errorLabelStyles
+  // If shrink is true, we apply the shrinkLabelStyles
 `;
 
 export const Input = styled.input`
@@ -49,12 +52,13 @@ export const Input = styled.input`
   border-radius: 0;
   border-bottom: 1px solid ${subColor};
   margin: 2.5rem 0;
+  min-width: 12rem;
 
   &:focus {
     outline: none;
   }
 
-  // To apply the shrinkLabelStyle on the label when we focus on the input
+  // To apply the shrinkLabelStyles (and the errorLabelStyles) on the label when we focus on the input
   &:focus ~ ${FormInputLabel} {
     ${shrinkLabelStyles};
     ${({ error }) => error && errorLabelStyles};
@@ -65,7 +69,4 @@ export const Input = styled.input`
 
 export const FormInputContainer = styled.div`
   position: relative;
-  input[type="password"] {
-    letter-spacing: 0.3rem;
-  }
 `;

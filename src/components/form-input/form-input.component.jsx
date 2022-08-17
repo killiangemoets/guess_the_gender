@@ -1,6 +1,6 @@
-import { FormInputLabel, Input, FormInputContainer } from "./form-input.style";
-
 import ErrorMessage from "../error-message/error-message.component";
+
+import { FormInputLabel, Input, FormInputContainer } from "./form-input.style";
 
 const FormInput = ({ label, errorMessage, ...otherProps }) => {
   return (

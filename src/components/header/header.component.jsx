@@ -1,6 +1,6 @@
-import { HeaderContainer, HeaderTitle } from "./header.style";
-
 import Navbar from "../navbar/navbar.component";
+
+import { HeaderContainer, HeaderTitle } from "./header.style";
 
 const Header = ({ hiddenReturn, handleReturn, children }) => {
   return (

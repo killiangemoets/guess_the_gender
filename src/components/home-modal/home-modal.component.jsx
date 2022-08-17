@@ -1,7 +1,5 @@
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 
-import { useNavigate } from "react-router-dom";
-
 import {
   HomeModalBackground,
   HomeModalContainer,
@@ -9,10 +7,12 @@ import {
   HomeModalAnswers,
 } from "./home-modal.style";
 
-const HomeModal = ({ hidden, handleCloseModal }) => {
-  const style = hidden ? { display: "none" } : {};
+import { useNavigate } from "react-router-dom";
 
+const HomeModal = ({ hidden, handleCloseModal }) => {
   const navigate = useNavigate();
+
+  const style = hidden ? { display: "none" } : {};
 
   const handleGoHome = () => {
     navigate("/");

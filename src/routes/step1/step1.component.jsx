@@ -1,14 +1,14 @@
 import FormInput from "../../components/form-input/form-input.component";
 import Button from "../../components/button/button.component";
 import { BUTTON_TYPE_CLASSES } from "../../components/button/button.component";
-
 import Header from "../../components/header/header.component";
+
+import { StepContainer, FormStep1, StepButtonContainer } from "./step1.style";
 
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { StepContainer, FormStep1, StepButtonContainer } from "./step1.style";
 import { selectPersonInfos } from "../../store/person/person.selector";
 import { updatePersonInfos } from "../../store/person/person.action";
 
@@ -18,6 +18,9 @@ const defaultFormFields = {
 };
 
 const Step1 = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { firstname, lastname } = formFields;
 
@@ -50,8 +53,6 @@ const Step1 = () => {
     else setLastNameError("");
   };
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const handleGoToStep2 = () => {
     handleBlurFirstname();
     handleBlurLastname();

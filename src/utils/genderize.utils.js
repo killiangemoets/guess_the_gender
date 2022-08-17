@@ -1,5 +1,6 @@
-// get the gender using the genderize.io API
+// Getting the gender using the genderize.io API
 const getGenderObjFromAPI = async (firstname) => {
+  // console.log("call");
   try {
     const rawResponse = await fetch(
       `https://api.genderize.io?name=${firstname}`
@@ -17,11 +18,13 @@ const getGenderObjFromAPI = async (firstname) => {
   }
 };
 
-// We use the memoization technique to avoid calling the API a useless amount of times since limited to 1000 calls per day
+// Using the memoization technique to avoid calling the API a useless amount of times since limited to 1000 calls per day
 export function memoize(fn) {
   const cache = {};
   return function (...args) {
-    // CACHING MECHANISM: check if we already called this function with this particular set of arguments and store the result this cache object
+    // console.log(cache);
+
+    // CACHING MECHANISM: check if we already called this function with this particular set of arguments and store the result in the cache object
     if (cache[args]) {
       return cache[args];
     }

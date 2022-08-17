@@ -1,18 +1,18 @@
 import ResultElement from "../../components/result-element/result-element.component";
-
 import Header from "../../components/header/header.component";
 
 import { ResultsContainer, Results } from "./result.style";
+import { StepContainer } from "../step1/step1.style";
 
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { selectPersonInfos } from "../../store/person/person.selector";
-import { StepContainer } from "../step1/step1.style";
 
 const Result = () => {
   const navigate = useNavigate();
+
   const { firstname, lastname, age, gender } = useSelector(selectPersonInfos);
 
   useEffect(() => {
