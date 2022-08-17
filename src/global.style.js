@@ -1,3 +1,6 @@
+import { createGlobalStyle } from "styled-components";
+
+export const GlobalStyle = createGlobalStyle`
 body {
   position: relative;
   margin: 0;
@@ -27,3 +30,5 @@ html {
   padding: 0;
   margin: 0;
 }
+
+`;
